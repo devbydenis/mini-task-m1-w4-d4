@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form class="custom-input">
+            <label for="amount">Amount</label>
+            <input type="number" name="amount" id="amount" />
+            <button type="submit">Show Items</button>
+            <div class="result"></div>
+        </form>
+    </body>
+    <script>
+        const buttonShowFirst = document.querySelector(".container > .custom-input > button");
+        const inputAmount = document.querySelector(".container > .custom-input > input");
+        const result = document.querySelector(".container > form > div");
+        const ul = document.createElement("ul");
+
+        buttonShowFirst.addEventListener("click", async (event) => {
+            event.preventDefault();
+
+            const url = "https://jsonplaceholder.typicode.com/posts";
+
+            try {
+                const inputValue = inputAmount.value;
+
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(response.statusText());
+                const data = await response.json();
+                // console.log(data);
+
+                const listTitle = [];
+                for (let i = 0; i < data.inputValue; i++) {
+                    const li = document.createElement("li");
+                    li.textContent = data[i].title;
+                    listTitle.push(li);
+                }
+                ul.append(...listTitle);
+
+                console.log(result);
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    </script>
+</html>
